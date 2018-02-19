@@ -23,6 +23,7 @@
 
 # Import statements: the list of outside modules you'll be using in your
 # skills, whether from other files in mycroft-core or from external libraries
+import lifx-python-master.lifx
 from os.path import dirname
 
 from adapt.intent import IntentBuilder
@@ -71,9 +72,11 @@ class LifxControlSkill(MycroftSkill):
     # the method is called.
     def handle_lights_on_intent(self, message):
         self.speak_dialog("light.on")
+        lifx.set_power(lifx.BCAST, True)
 
     def handle_lights_off_intent(self, message):
         self.speak_dialog("light.off")
+        lifx.set_power(lifx.BCAST, False)
 
     def handle_lights_dim_intent(self, message):
         self.speak_dialog("light.dim")

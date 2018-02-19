@@ -78,7 +78,7 @@ class LifxControlSkill(MycroftSkill):
             if light.get_label() == "Gallsy's Light Emporium":
                 bulb = light
         
-        light.set_power("on")
+        light.set_power("on", False)
 
     def handle_lights_off_intent(self, message):
         self.speak_dialog("light.off")
@@ -88,13 +88,28 @@ class LifxControlSkill(MycroftSkill):
             if light.get_label() == "Gallsy's Light Emporium":
                 bulb = light
         
-        light.set_power("off")
+        light.set_power("off", False)
 
     def handle_lights_dim_intent(self, message):
         self.speak_dialog("light.dim")
-    
+        lifx = LifxLAN()
+        
+        for light in lifx.get_lights():
+            if light.get_label() == "Gallsy's Light Emporium":
+                bulb = light
+        
+        light.set_brightness(20000, rapid=False)
+
     def handle_lights_bright_intent(self, message):
         self.speak_dialog("light.bright")
+        lifx = LifxLAN()
+        
+        for light in lifx.get_lights():
+            if light.get_label() == "Gallsy's Light Emporium":
+                bulb = light
+        
+        light.set_brightness(65535, rapid=False)
+
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
     # is extremely simple, the method just contains the keyword "pass", which

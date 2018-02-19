@@ -70,16 +70,16 @@ class LifxControlSkill(MycroftSkill):
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
     def handle_lights_on_intent(self, message):
-        self.speak_dialog("lights.on")
+        self.speak_dialog("light.on")
 
     def handle_lights_off_intent(self, message):
-        self.speak_dialog("lights.off")
+        self.speak_dialog("light.off")
 
     def handle_lights_dim_intent(self, message):
-        self.speak_dialog("lights.dim")
+        self.speak_dialog("light.dim")
     
     def handle_lights_bright_intent(self, message):
-        self.speak_dialog("lights.bright")
+        self.speak_dialog("light.bright")
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
     # is extremely simple, the method just contains the keyword "pass", which

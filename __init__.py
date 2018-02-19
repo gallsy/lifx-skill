@@ -88,7 +88,7 @@ class LifxControlSkill(MycroftSkill):
             if light.get_label() == "Gallsy's Light Emporium":
                 bulb = light
         
-        light.set_power("on")
+        light.set_power("off")
 
     def handle_lights_dim_intent(self, message):
         self.speak_dialog("light.dim")

@@ -60,9 +60,14 @@ class LifxControlSkill(MycroftSkill):
                              self.handle_lights_off_intent)
 
         lights_dim_intent = IntentBuilder("LightsDimIntent").\
-            require("LightsDimeyword").build()
+            require("LightsDimKeyword").build()
         self.register_intent(lights_dim_intent,
                              self.handle_lights_dim_intent)
+
+        lights_bright_intent = IntentBuilder("LightsBrightIntent").\
+            require("LightsBrightKeyword").build()
+        self.register_intent(lights_bright_intent,
+                             self.handle_lights_bright_intent)
 
     # The "handle_xxxx_intent" functions define Mycroft's behavior when
     # each of the skill's intents is triggered: in this case, he simply

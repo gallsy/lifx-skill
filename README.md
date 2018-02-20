@@ -1,20 +1,9 @@
-# PROJECT_NAME skill
+# LIFX-Skill
 
-This skill does ...
+This is a basic mycroft skill that can control LIFX lights using LifxLAN (https://github.com/mclarkk/lifxlan)
 
-To get this done we need
-  - This
-  - That
-  - The other thing
-
-
-## Current state
-
-Working features:
- - ...
-
-Known issues:
- - ...
-
-TODO:
- - ...
+Usage
+- Turn on the lights / Lights on
+- Turn off the lights / Lights off
+- Dim Lights / Lights down
+- Lights Full / lights up

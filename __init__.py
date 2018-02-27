@@ -23,11 +23,12 @@
 
 # Import statements: the list of outside modules you'll be using in your
 # skills, whether from other files in mycroft-core or from external libraries
-from lifxlan import BLUE, GREEN, LifxLAN
+from lifxlan import LifxLAN, lifxlan
 from os.path import dirname
 
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
+
 from mycroft.util.log import getLogger
 
 __author__ = 'gallsy'
@@ -68,6 +69,17 @@ class LifxControlSkill(MycroftSkill):
             require("LightsBrightKeyword").build()
         self.register_intent(lights_bright_intent,
                              self.handle_lights_bright_intent)
+        
+        if self.settings["name"] != "":
+            lifx = lifxlan.LifxLAN()
+            for light in lifx.get_lights():
+                if light.get_label() == self.settings["name"]:
+                    bulb = light
+            
+            if bulb not None:
+                self.settings["ipadd"] = bulb.get_ip_addr()
+                self.settings["macadd"] = bulb.get_mac_addr()
+
 
     # The "handle_xxxx_intent" functions define Mycroft's behavior when
     # each of the skill's intents is triggered: in this case, he simply
@@ -77,42 +89,22 @@ class LifxControlSkill(MycroftSkill):
     # the method is called.
     def handle_lights_on_intent(self, message):
         self.speak_dialog("light.on")
-        lifx = LifxLAN()
-        
-        for light in lifx.get_lights():
-            if light.get_label() == "Gallsy's Light Emporium":
-                bulb = light
-        
+        light = lifxlan.Light(self.settings["macadd"], self.settings["ipadd"])
         light.set_power("on", False)
 
     def handle_lights_off_intent(self, message):
         self.speak_dialog("light.off")
-        lifx = LifxLAN()
-        
-        for light in lifx.get_lights():
-            if light.get_label() == "Gallsy's Light Emporium":
-                bulb = light
-        
+        light = lifxlan.Light(self.settings["macadd"], self.settings["ipadd"])
         light.set_power("off", False)
 
     def handle_lights_dim_intent(self, message):
         self.speak_dialog("light.dim")
-        lifx = LifxLAN()
-        
-        for light in lifx.get_lights():
-            if light.get_label() == "Gallsy's Light Emporium":
-                bulb = light
-        
+        light = lifxlan.Light(self.settings["macadd"], self.settings["ipadd"])
         light.set_brightness(20000, rapid=False)
 
     def handle_lights_bright_intent(self, message):
         self.speak_dialog("light.bright")
-        lifx = LifxLAN()
-        
-        for light in lifx.get_lights():
-            if light.get_label() == "Gallsy's Light Emporium":
-                bulb = light
-        
+        light = lifxlan.Light(self.settings["macadd"], self.settings["ipadd"])
         light.set_brightness(65535, rapid=False)
 
     # The "stop" method defines what Mycroft does when told to stop during
